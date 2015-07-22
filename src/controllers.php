@@ -12,6 +12,23 @@ $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html.twig', array());
 })->bind('homepage');
 
+
+/**
+ * API
+ * endpoint to be consumed
+ */
+$app->get('/api/v1/question', function (Request $Request) use ($app) {
+    $sql = "SELECT * FROM questions";
+    $questions = $app['db']->fetchAssoc($sql);
+    $response = [
+        'content' => [
+            'get' => $Request->query->all(),
+            'questions' => $questions
+        ]
+    ];
+    return new JsonResponse($response);
+});
+
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
         return;

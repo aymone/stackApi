@@ -14,16 +14,16 @@ $app->register(new ServiceControllerServiceProvider());
 $app->register(new TwigServiceProvider());
 $app->register(new HttpFragmentServiceProvider());
 
-$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-    'dbs.options' => array(
+$app->register(new Silex\Provider\DoctrineServiceProvider(), [
+    'db.options' => [
         'driver' => 'pdo_mysql',
         'host' => 'localhost',
         'dbname' => 'stack_moblee',
         'user' => 'root',
         'password' => '123',
-        'charset' => 'utf8',
-    )
-));
+        'charset' => 'utf8'
+    ]
+]);
 
 
 $app['twig'] = $app->extend('twig', function ($twig, $app) {

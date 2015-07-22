@@ -1,1 +1,4 @@
+#Silex vendors
 /vendor/
+#phpstorm files
+.idea
