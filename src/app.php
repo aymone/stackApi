@@ -13,7 +13,6 @@ $app->register(new ValidatorServiceProvider());
 $app->register(new ServiceControllerServiceProvider());
 $app->register(new TwigServiceProvider());
 $app->register(new HttpFragmentServiceProvider());
-
 $app->register(new Silex\Provider\DoctrineServiceProvider(), [
     'db.options' => [
         'driver' => 'pdo_mysql',
@@ -24,15 +23,11 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), [
         'charset' => 'utf8'
     ]
 ]);
-
-
 $app['twig'] = $app->extend('twig', function ($twig, $app) {
     // add custom globals, filters, tags, ...
-
     $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) use ($app) {
         return $app['request_stack']->getMasterRequest()->getBasepath() . '/' . ltrim($asset, '/');
     }));
-
     return $twig;
 });
 
