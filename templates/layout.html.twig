@@ -1,60 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="StarterApp">
+<html lang="en">
 
 <head>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
+    <link rel="stylesheet" href="/js/node_modules/angular-material/angular-material.css">
 </head>
 
-<body layout="column" ng-controller="AppCtrl">
+<body id="body-content" layout="column" ng-controller="AppCtrl as ctrl">
+<!-- Header -->
 <md-toolbar layout="row">
     <div class="md-toolbar-tools">
         <h1>PHP StackOverflow</h1>
     </div>
 </md-toolbar>
-<md-progress-linear md-mode="indeterminate"></md-progress-linear>
-<br />
-
+<!-- Header end -->
+<br/>
+<!-- Content -->
 <md-content layout-padding>
-    <md-button class="md-raised md-warn">Persistir dados</md-button>
-    <form name="filterForm">
-        <div layout layout-sm="column">
-            <md-input-container flex>
-                <label>Page</label>
-                <input ng-model="filter.page">
-            </md-input-container>
-            <md-input-container flex>
-                <label>Rpp</label>
-                <input ng-model="filter.rpp">
-            </md-input-container>
-            <md-input-container flex>
-                <label>Sort</label>
-                <input ng-model="filter.sort">
-            </md-input-container>
-            <md-input-container flex>
-                <label>Score</label>
-                <input ng-model="filter.score">
-            </md-input-container>
-        </div>
-        <md-input-container flex>
-            <md-button class="md-raised md-primary">Buscar</md-button>
-        </md-input-container>
-    </form>
+    {% block content %}{% endblock %}
 </md-content>
+<!-- Content end-->
 
-<script src="/node_modules/angular/angular.js"></script>
-<script src="/node_modules/angular-aria/angular-aria.js"></script>
-<script src="/node_modules/angular-animate/angular-animate.js"></script>
-<script src="/node_modules/angular-material/angular-material.js"></script>
-<script>
-    // Include app dependency on ngMaterial
-    var app = angular.module('StarterApp', ['ngMaterial']);
-    app.controller('AppCtrl', ['$scope', '$mdSidenav', function ($scope, $mdSidenav) {
-        $scope.toggleSidenav = function (menuId) {
-            $mdSidenav(menuId).toggle();
-        };
-    }]);
-</script>
+<!-- Scripts -->
+<script src="/js/node_modules/requirejs/require.js"></script>
+<script src="/js/app/main.js"></script>
+<!-- Scripts end-->
 
 </body>
 </html>

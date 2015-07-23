@@ -1,5 +1,74 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-    Welcome to your new Silex Application!
+    <div layout="row">
+        <div flex hide-sm></div>
+        <div flex>
+            <div flex>
+                <div layout="row" layout-sm="column" layout-align="space-around">
+                    <div flex>
+                        <md-button class="md-raised md-warn" ng-click="ctrl.getQuestions()">Persistir dados</md-button>
+                    </div>
+                    <div flex>
+                        <md-progress-circular ng-show="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-circular>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div>
+                <form name="filterForm">
+                    <div layout layout-sm="column">
+                        <md-input-container flex>
+                            <label>Page</label>
+                            <input ng-model="filter.page">
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Rpp</label>
+                            <input ng-model="filter.rpp">
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Sort</label>
+                            <input ng-model="filter.sort">
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Score</label>
+                            <input ng-model="filter.score">
+                        </md-input-container>
+                    </div>
+                    </hr>
+                    <md-input-container flex>
+                        <md-button class="md-raised md-primary">Buscar</md-button>
+                    </md-input-container>
+                </form>
+            </div>
+
+            <md-list>
+                <md-list-item class="md-3-line">
+                    <div class="md-list-item-text">
+                        <h3>item.who</h3>
+                        <h4>item.what</h4>
+
+                        <p>item.notes</p>
+                    </div>
+                </md-list-item>
+                <md-list-item class="md-3-line">
+                    <div class="md-list-item-text">
+                        <h3>item.who</h3>
+                        <h4>item.what</h4>
+
+                        <p>item.notes</p>
+                    </div>
+                </md-list-item>
+                <md-list-item class="md-3-line">
+                    <div class="md-list-item-text">
+                        <h3>item.who</h3>
+                        <h4>item.what</h4>
+
+                        <p>item.notes</p>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </div>
+        <div flex hide-sm></div>
+    </div>
 {% endblock %}
