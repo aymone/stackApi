@@ -27,7 +27,7 @@ define([], function() {
         function getQuestions() {
             return questionService.get()
                 .then(function(data) {
-                    vm.questions = data.itens;
+                    vm.questions = data.items;
                     showSimpleToast('Dados persistidos com sucesso!');
                 })
                 .catch(function(error) {
