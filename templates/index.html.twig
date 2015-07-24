@@ -9,6 +9,7 @@
                     <div flex>
                         <md-button class="md-raised md-warn" ng-click="ctrl.getQuestions()">Persistir dados</md-button>
                     </div>
+                    <div flex></div>
                     <div flex>
                         <md-progress-circular ng-show="ctrl.loading" class="md-warn"
                                               md-mode="indeterminate"></md-progress-circular>
@@ -49,10 +50,15 @@
                     <div class="md-list-item-text">
                         <h3>{[{item.title}]}</h3>
                         <h4>Usuário: {[{item.owner.display_name}]}</h4>
+
                         <p>Id: {[{item.question_id}]}</p>
+
                         <p>Pontuação: {[{item.score}]}</p>
+
                         <p>Possui resposta: {[{item.is_answered}]}</p>
+
                         <p>Data de criação: {[{item.creation_date}]}</p>
+
                         <p>{[{item.link}]}</p>
                     </div>
                 </md-list-item>

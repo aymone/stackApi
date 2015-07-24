@@ -26,9 +26,9 @@ define([], function () {
          * Post data retrieved from stackOverflow api
          * @returns {object} promise
          */
-        function post() {
-            var url = 'http://localhost/api/v1/questions';
-            return $http.post(url)
+        function post(data) {
+            var url = 'http://local.stack.com/api/v1/questions';
+            return $http.post(url, data)
                 .then(successHandler)
                 .catch(errorHandler);
         }
@@ -47,7 +47,7 @@ define([], function () {
                     sort: 'creation',
                     tagged: 'php',
                     site: 'stackoverflow',
-                    //filter for defined fieds
+                    //filter for defined fields
                     filter: '!1PUolpjSEGSfDxvTfzfJEmgJjX_LaWJTr'
                 }
             };

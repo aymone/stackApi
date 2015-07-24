@@ -10,10 +10,13 @@ define([], function () {
 
     function AppController($rootScope, $scope, $mdToast, $animate, questionService) {
         var vm = this;
+        var questions = {};
+
         vm.loading = false;
+
+        //Bindable members
         vm.getQuestions = getQuestions;
-        //bind to view just for fun
-        vm.questions = {};
+        vm.postQuestions = getQuestions;
 
         function showSimpleToast(msg) {
             $mdToast.show(
@@ -22,28 +25,28 @@ define([], function () {
                     .position('top right')
                     .hideDelay(3000)
             );
-        };
+        }
 
         function getQuestions() {
             return questionService.get()
-                .then(function (data) {
-                    if (data && angular.isDefined(data.items)) {
-                        vm.questions = data.items;
+                .then(function (response) {
+                    if (response && angular.isDefined(response.items)) {
+                        questions = response.items;
                         showSimpleToast('Dados recuperados com sucesso!');
                     } else {
                         showSimpleToast('Erro ao recuperar dados, verifique o console do browser!');
                     }
                 }).then(function () {
-                    if (angular.isDefined(vm.questions.length)) {
-                        //postQuestions([]);
+                    if (angular.isDefined(questions.length)) {
+                        postQuestions(questions);
                     }
                 });
         }
 
         function postQuestions(data) {
             return questionService.post(data)
-                .then(function (data) {
-                    if (data && angular.isDefined(data.items)) {
+                .then(function (response) {
+                    if (angular.isDefined(response) && response.content.status) {
                         showSimpleToast('Dados persistidos com sucesso!');
                     } else {
                         showSimpleToast('Erro ao persistir dados, verifique o console do browser!');

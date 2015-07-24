@@ -8,26 +8,48 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 //Request::setTrustedProxies(array('127.0.0.1'));
 
+/**
+ * Index homepage
+ */
 $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html.twig', array());
 })->bind('homepage');
 
 /**
- * API
+ * Questions API
  * endpoint to be consumed
  */
-$app->get('/api/v1/question', function (Request $Request) use ($app) {
+$app->get('/api/v1/questions', function (Request $request) use ($app) {
     $sql = "SELECT * FROM questions";
     $questions = $app['db']->fetchAssoc($sql);
     $response = [
         'content' => [
-            'get' => $Request->query->all(),
+            'status' => true,
+            'get' => $request->query->all(),
             'questions' => $questions
         ]
     ];
     return new JsonResponse($response);
 });
 
+/**
+ * Questions API
+ * Save data from post
+ */
+$app->post('/api/v1/questions', function (Request $request) use ($app) {
+    $questions = json_decode($request->getContent(), true);
+    $response = [
+        'content' => [
+            'status' => true,
+            'questions' => $questions
+        ]
+    ];
+    return new JsonResponse($response);
+});
+
+/**
+ * App Error handler
+ */
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
         return;
