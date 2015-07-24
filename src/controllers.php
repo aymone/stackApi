@@ -20,7 +20,7 @@ $app->get('/', function () use ($app) {
  * endpoint to be consumed
  */
 $app->get('/api/v1/questions', function (Request $request) use ($app) {
-    $sql = "SELECT * FROM questions";
+    $em = $app['orm.em'];
     $questions = $app['db']->fetchAssoc($sql);
     $response = [
         'content' => [
