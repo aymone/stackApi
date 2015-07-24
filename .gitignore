@@ -1,4 +1,7 @@
 #Silex vendors
 /vendor/
+#Silex cache/logs
+/var
 #phpstorm files
 .idea
+
