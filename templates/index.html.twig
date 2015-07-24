@@ -10,11 +10,13 @@
                         <md-button class="md-raised md-warn" ng-click="ctrl.getQuestions()">Persistir dados</md-button>
                     </div>
                     <div flex>
-                        <md-progress-circular ng-show="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-circular>
+                        <md-progress-circular ng-show="ctrl.loading" class="md-warn"
+                                              md-mode="indeterminate"></md-progress-circular>
                     </div>
                 </div>
             </div>
             <br>
+
             <div>
                 <form name="filterForm">
                     <div layout layout-sm="column">
@@ -45,9 +47,13 @@
             <md-list>
                 <md-list-item class="md-3-line" ng-repeat="item in ctrl.questions">
                     <div class="md-list-item-text">
-                        <h3>{[{item.question_id}]}</h3>
-                        <h4>{[{item.is_accepted}]}</h4>
-                        <p>{[{item.score}]}</p>
+                        <h3>{[{item.title}]}</h3>
+                        <h4>Usuário: {[{item.owner.display_name}]}</h4>
+                        <p>Id: {[{item.question_id}]}</p>
+                        <p>Pontuação: {[{item.score}]}</p>
+                        <p>Possui resposta: {[{item.is_answered}]}</p>
+                        <p>Data de criação: {[{item.creation_date}]}</p>
+                        <p>{[{item.link}]}</p>
                     </div>
                 </md-list-item>
             </md-list>

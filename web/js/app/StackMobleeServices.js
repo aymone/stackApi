@@ -4,46 +4,80 @@
  * @author: Marcelo Aymone
  */
 
-define([], function() {
+define([], function () {
     angular.module('StackMobleeServices', [])
         .factory('questionService', questionService);
 
+    /**
+     * My revealing module pattern
+     * @param $http
+     * @returns {{get: get, post: post}}
+     */
     function questionService($http) {
-        var a = 'testing services';
+        /**
+         * Public methods
+         */
         return {
-            teste: teste,
-            get: get
+            get: get,
+            post: post
         };
 
-        function teste() {
-            return a;
-        }
-
-        function get() {
-            var url =
-                'https://api.stackexchange.com/2.2/answers?order=desc&sort=activity&site=stackoverflow';
-            return $http.get(url)
+        /**
+         * Post data retrieved from stackOverflow api
+         * @returns {object} promise
+         */
+        function post() {
+            var url = 'http://localhost/api/v1/questions';
+            return $http.post(url)
                 .then(successHandler)
                 .catch(errorHandler);
         }
-    }
 
-    /**
-     * Common Success Handler
-     * @param response
-     * @returns {*}
-     */
-    function successHandler(response) {
-        return response.data;
-    }
+        /**
+         * Retrive data from stackOverflow api
+         * @returns {object} promise
+         */
+        function get() {
+            var url = 'https://api.stackexchange.com/2.2/questions';
+            var config = {
+                params: {
+                    page: 1,
+                    pagesize: 99,
+                    order: 'desc',
+                    sort: 'creation',
+                    tagged: 'php',
+                    site: 'stackoverflow',
+                    //filter for defined fieds
+                    filter: '!1PUolpjSEGSfDxvTfzfJEmgJjX_LaWJTr'
+                }
+            };
+            return $http.get(url, config)
+                .then(successHandler)
+                .catch(errorHandler);
+        }
 
-    /**
-     * Common Error Handler
-     * @param error
-     * @returns {boolean}
-     */
-    function errorHandler(error) {
-        console.log(error);
-        return false;
+        /**
+         * Non public methods
+         */
+
+        /**
+         * Common Success Handler
+         * @param response
+         * @returns {*}
+         */
+        function successHandler(response) {
+            return response.data;
+        }
+
+        /**
+         * Common Error Handler
+         * @param error
+         * @returns {boolean}
+         */
+        function errorHandler(error) {
+            console.log(error.config);
+            return false;
+        }
+
     }
 });

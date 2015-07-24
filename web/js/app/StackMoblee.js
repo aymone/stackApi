@@ -21,7 +21,6 @@
             httpInterceptor.$inject = ['$q', '$rootScope'];
 
             function httpInterceptor($q, $rootScope) {
-                console.log('aqui');
                 var numLoadings = 0;
                 return {
                     request: function(config) {

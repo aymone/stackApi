@@ -4,43 +4,57 @@
  * @author: Marcelo Aymone
  */
 
-define([], function() {
+define([], function () {
     angular.module('StackMobleeControllers', [])
-        .controller('AppCtrl', AppCtrl);
+        .controller('AppController', AppController);
 
-    function AppCtrl($rootScope, $scope, $mdToast, $animate, questionService) {
+    function AppController($rootScope, $scope, $mdToast, $animate, questionService) {
         var vm = this;
-        vm.teste = questionService.teste();
         vm.loading = false;
         vm.getQuestions = getQuestions;
+        //bind to view just for fun
         vm.questions = {};
 
         function showSimpleToast(msg) {
             $mdToast.show(
                 $mdToast.simple()
-                .content(msg)
-                .position('top right')
-                .hideDelay(3000)
+                    .content(msg)
+                    .position('top right')
+                    .hideDelay(3000)
             );
         };
 
         function getQuestions() {
             return questionService.get()
-                .then(function(data) {
-                    vm.questions = data.items;
-                    showSimpleToast('Dados persistidos com sucesso!');
-                })
-                .catch(function(error) {
-                    showSimpleToast('Erro encontrado');
+                .then(function (data) {
+                    if (data && angular.isDefined(data.items)) {
+                        vm.questions = data.items;
+                        showSimpleToast('Dados recuperados com sucesso!');
+                    } else {
+                        showSimpleToast('Erro ao recuperar dados, verifique o console do browser!');
+                    }
+                }).then(function () {
+                    if (angular.isDefined(vm.questions.length)) {
+                        //postQuestions([]);
+                    }
                 });
         }
 
-        $rootScope.$on("LoaderEvent", function(event, data) {
+        function postQuestions(data) {
+            return questionService.post(data)
+                .then(function (data) {
+                    if (data && angular.isDefined(data.items)) {
+                        showSimpleToast('Dados persistidos com sucesso!');
+                    } else {
+                        showSimpleToast('Erro ao persistir dados, verifique o console do browser!');
+                    }
+                });
+        }
+
+        $rootScope.$on("LoaderEvent", function (event, data) {
             vm.loading = data.status;
-            console.log('activated');
         });
-
-
     }
-    AppCtrl.$inject = ['$rootScope', '$scope', '$mdToast', '$animate', 'questionService'];
+
+    AppController.$inject = ['$rootScope', '$scope', '$mdToast', '$animate', 'questionService'];
 });
