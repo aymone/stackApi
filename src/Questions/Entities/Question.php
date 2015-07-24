@@ -7,7 +7,10 @@
  * Date: 23/07/15
  * Time: 23:34
  */
+namespace Question\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 /**
  * @Entity @Table(name="questions")
  **/
