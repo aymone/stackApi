@@ -5,4 +5,4 @@
 #phpstorm files
 .idea
 #Node_modules
-/web/js/node_modules
+/web/node_modules
