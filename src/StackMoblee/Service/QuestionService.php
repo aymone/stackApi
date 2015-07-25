@@ -6,10 +6,10 @@
  * Time: 22:05
  */
 
-namespace StackMoblee\Question\Services;
+namespace StackMoblee\Question\Service;
 
 use Doctrine\ORM\EntityManager;
-use StackMoblee\Question\Entity\Question;
+use StackMoblee\Question\Service;
 
 class QuestionService
 {

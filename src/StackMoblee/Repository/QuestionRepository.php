@@ -7,7 +7,7 @@
  * Time: 00:01
  */
 
-namespace StackMoblee\Question\Entity;
+namespace StackMoblee\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
