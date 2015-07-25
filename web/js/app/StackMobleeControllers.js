@@ -8,15 +8,62 @@ define([], function () {
     angular.module('StackMobleeControllers', [])
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$rootScope', '$scope', 'questionService', 'tostrService'];
-    function AppController($rootScope, $scope, questionService, tostrService) {
+    AppController.$inject = ['$rootScope', '$scope', 'questionService', 'tostrService', '$timeout', '$q'];
+    function AppController($rootScope, $scope, questionService, tostrService, $timeout, $q) {
         var vm = this;
         var questions = {};
 
+        //loader status machine
         vm.loading = false;
 
+        //my services
         vm.getQuestions = getQuestions;
         vm.postQuestions = postQuestions;
+        vm.query = query;
+
+        //Directive info
+        vm.sortOptions = loadAll();
+        vm.searchText = null;
+        vm.querySearch = querySearch;
+
+        //filters for query
+        vm.filters = {
+            page: null,
+            rpp: null,
+            sort: null,
+            score: null
+        };
+
+        function query() {
+            console.log(vm.filters);
+        }
+
+
+        function querySearch(query) {
+            var results = query ? vm.sortOptions.filter(createFilterFor(query)) : [];
+            return results;
+        }
+
+        /**
+         * Build `states` list of key/value pairs
+         */
+        function loadAll() {
+            var allFields = 'question_id, title, owner_name, score, creation_date, link, is_answered';
+            return allFields.split(/, +/g).map(function (field) {
+                return field.toLowerCase();
+            });
+        }
+
+        /**
+         * Create filter function for a query string
+         */
+        function createFilterFor(query) {
+            var lowercaseQuery = angular.lowercase(query);
+            return function filterFn(field) {
+                return (field.indexOf(lowercaseQuery) === 0);
+            };
+        }
+
 
         /**
          * Get questions
@@ -60,4 +107,5 @@ define([], function () {
         });
     }
 
-});
+})
+;

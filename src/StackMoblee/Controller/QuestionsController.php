@@ -13,10 +13,16 @@ use StackMoblee\Service\QuestionService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+/**
+ * Class QuestionsController
+ * @package StackMoblee\Controller
+ */
 class QuestionsController
 {
     /**
-     * Get Questions
+     * @param Application $app
+     * @param Request $request
+     * @return JsonResponse
      */
     public function get(Application $app, Request $request) {
 //        $app['orm.em']->createQuery('SELECT * FROM StackMoblle\Entity\Question');
@@ -25,7 +31,9 @@ class QuestionsController
     }
 
     /**
-     * Post Questions
+     * @param Application $app
+     * @param Request $request
+     * @return JsonResponse
      */
     public function post(Application $app, Request $request) {
         $data = json_decode($request->getContent(), true);
