@@ -7,39 +7,46 @@
  * Date: 23/07/15
  * Time: 23:34
  */
-namespace Question\Entities;
+namespace StackMoblee\Question\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+
 /**
- * @Entity @Table(name="questions")
- **/
+ * @ORM\Entity(repositoryClass="StackMoblee\Question\Entity\QuestionRepository")
+ * @ORM\Table(name="questions")
+ */
 class Question
 {
-    /** @Column(type="integer") **/
+    /** @Column(type="integer") * */
     public $question_id;
 
-    /** @Column(type="string") **/
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     public $title;
 
-    /** @Column(type="string") **/
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     public $owner_name;
 
-    /** @Column(type="integer") **/
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
     public $score;
 
-    /** @Column(type="string") **/
-    public $link;
-
-    /** @Column(type="integer") **/
-    public $is_answered;
+    /**
+     * @ORM\Column(type="integer")
+     */
+    public $creation_date;
 
     /**
-     * @return mixed
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public function getQuestionId() {
-        return $this->question_id;
-    }
+    public $link;
+
+    /** @Column(type="integer") * */
+    public $is_answered;
 
     /**
      * @param mixed $question_id
@@ -48,13 +55,6 @@ class Question
     public function setQuestionId($question_id) {
         $this->question_id = $question_id;
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTitle() {
-        return $this->title;
     }
 
     /**
@@ -67,26 +67,12 @@ class Question
     }
 
     /**
-     * @return mixed
-     */
-    public function getOwnerName() {
-        return $this->owner_name;
-    }
-
-    /**
      * @param mixed $owner
      * @return Question
      */
     public function setOwnerName($owner) {
         $this->owner_name = $owner['display_name'];
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getScore() {
-        return $this->score;
     }
 
     /**
@@ -99,10 +85,12 @@ class Question
     }
 
     /**
-     * @return mixed
+     * @param mixed $creation_date
+     * @return Question
      */
-    public function getLink() {
-        return $this->link;
+    public function setCreationDate($creation_date) {
+        $this->creation_date = $creation_date;
+        return $this;
     }
 
     /**
@@ -112,13 +100,6 @@ class Question
     public function setLink($link) {
         $this->link = $link;
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIsAnswered() {
-        return $this->is_answered;
     }
 
     /**
