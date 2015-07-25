@@ -20,22 +20,25 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class QuestionsController
 {
     /**
-     * @param Application $app
      * @param Request $request
+     * @param Application $app
      * @return JsonResponse
      */
-    public function get(Application $app, Request $request) {
-//        $app['orm.em']->createQuery('SELECT * FROM StackMoblle\Entity\Question');
-        $results = [];
-        return new JsonResponse(['status' => $results]);
+    public function get(Request $request, Application $app) {
+        //Query params from client
+        $params = $request->query->all();
+        $em = $app['orm.em'];
+        $questionService = new QuestionService($em);
+        $response = $questionService->find($params);
+        return new JsonResponse($response);
     }
 
     /**
-     * @param Application $app
      * @param Request $request
+     * @param Application $app
      * @return JsonResponse
      */
-    public function post(Application $app, Request $request) {
+    public function post(Request $request, Application $app) {
         $data = json_decode($request->getContent(), true);
         $em = $app['orm.em'];
         $questionService = new QuestionService($em);

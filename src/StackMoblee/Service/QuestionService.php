@@ -25,15 +25,18 @@ class QuestionService
      */
     public function __construct(EntityManager $em) {
         $this->em = $em;
+        $this->questionsRepository = $this->em
+            ->getRepository("\\StackMoblee\\Entity\\Question");
     }
 
     /**
-     * @return array
+     * Query
+     * @param $params
+     * @return mixed
      */
-    public function get() {
-        return [
-            'status' => true
-        ];
+    public function find($params) {
+        $params = $this->questionsRepository->query($params);
+        return $params;
     }
 
     /**
