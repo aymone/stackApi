@@ -50,6 +50,6 @@ $app->register(new MonologServiceProvider(), [
     'monolog.logfile' => __DIR__ . '/../var/logs/silex_dev.log',
 ]);
 
-$app->mount("/stack_moblee/v1", new \StackMoblee\Provider\V1ControllerProvider());
+$app->mount("/stack_moblee/v1", new \StackMoblee\Provider\QuestionsControllerProvider());
 
 return $app;
