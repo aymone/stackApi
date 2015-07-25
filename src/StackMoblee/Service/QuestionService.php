@@ -6,10 +6,12 @@
  * Time: 22:05
  */
 
-namespace StackMoblee\Question\Service;
 
+
+namespace StackMoblee\Service;
+use Silex\Application;
 use Doctrine\ORM\EntityManager;
-use StackMoblee\Question\Service;
+use StackMoblee\Entity\Question;
 
 class QuestionService
 {
@@ -22,14 +24,30 @@ class QuestionService
         $this->question = $question;
     }
 
-    public function insert(array $data = array()) {
-        $this->question->setNome($data['question_id']);
-        $this->question->setValor($this->stringToMoney($data['valor']));
-        $this->question->setDescricao($data['descricao']);
-        $this->question->setImagem($data['fotos']);
+    public function get() {
+        return [
+            status => true
+        ];
+    }
 
-        try {
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function insert(array $data = array()) {
+
+        for ($i = 1; $i <= 99; $i++) {
+            $this->question = new Question;
+            $this->question->setQuestionId($data['question_id']);
+            $this->question->setTitle($data['title']);
+            $this->question->setOwnerName($data['owner']);
+            $this->question->setScore($data['score']);
+            $this->question->setCreationDate($data['creation_date']);
+            $this->question->setLink($data['link']);
+            $this->question->setIsAnswered($data['is_answered']);
             $this->em->persist($this->question);
+        }
+        try {
             $this->em->flush();
         } catch (\Exception $error) {
             return [

@@ -16,12 +16,12 @@ $app->register(new ValidatorServiceProvider());
 $app->register(new ServiceControllerServiceProvider());
 $app->register(new HttpFragmentServiceProvider());
 $app->register(new TwigServiceProvider());
-$app['twig'] = $app->extend('twig', function ($twig, $app) {
-    $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) use ($app) {
-        return $app['request_stack']->getMasterRequest()->getBasepath() . '/' . ltrim($asset, '/');
-    }));
-    return $twig;
-});
+//$app['twig'] = $app->extend('twig', function ($twig, $app) {
+//    $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) use ($app) {
+//        return $app['request_stack']->getMasterRequest()->getBasepath() . '/' . ltrim($asset, '/');
+//    }));
+//    return $twig;
+//});
 
 $app->register(new DoctrineServiceProvider(), [
     'db.options' => [
@@ -35,13 +35,12 @@ $app->register(new DoctrineServiceProvider(), [
 ]);
 
 $app->register(new DoctrineOrmServiceProvider, [
-//    "orm.proxies_dir" => "/path/to/proxies",
     "orm.em.options" => [
         "mappings" => [
             [
                 "type" => "annotation",
-                "namespace" => 'StackMoblee\Questions',
-                "path" => __DIR__ . "/src/Questions/Entities",
+                "namespace" => 'StackMoblee\Entity',
+                "path" => __DIR__ . "/src/StackMoblee/Entity",
             ]
         ]
     ]
@@ -51,6 +50,6 @@ $app->register(new MonologServiceProvider(), [
     'monolog.logfile' => __DIR__ . '/../var/logs/silex_dev.log',
 ]);
 
-$app->mount("/v1", new \StackMoblee\Controller\Provider\V1ControllerProvider());
+$app->mount("/stack_moblee/v1", new \StackMoblee\Provider\V1ControllerProvider());
 
 return $app;

@@ -4,42 +4,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-//use Symfony\Component\HttpFoundation\RedirectResponse;
-//use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-//Request::setTrustedProxies(array('127.0.0.1'));
-
 /**
  * Index homepage
  */
 $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html.twig', array());
 })->bind('homepage');
-
-
-//$app->get("/test", "StackMoblee\Controller\QuestionsController::index");
-
-/**
- * Questions API
- * endpoint to be consumed
- */
-$app->get('/api/v1/questions', function (Request $request) use ($app) {
-    echo('api/v1/questions');die;
-});
-
-/**
- * Questions API
- * Save data from post
- */
-$app->post('/api/v1/questions', function (Request $request) use ($app) {
-    $questions = json_decode($request->getContent(), true);
-    $response = [
-        'content' => [
-            'status' => true,
-            'questions' => $questions
-        ]
-    ];
-    return new JsonResponse($response);
-});
 
 /**
  * App Error handler

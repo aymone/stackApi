@@ -15,13 +15,9 @@ use Doctrine\ORM\EntityRepository;
 
 class QuestionRepository extends EntityRepository
 {
-    public function getQuestions() {
-        $query = $this->createQueryBuilder("p")->getQuery()->getResult();
-        return count($query);
-    }
 
-    public function postQuestions($questions) {
-
+    public function testint(){
+        return 'true';
     }
 
 }

@@ -27,7 +27,7 @@ define([], function () {
          * @returns {object} promise
          */
         function post(data) {
-            var url = 'http://local.stack.com/api/v1/questions';
+            var url = 'http://local.stack.com/stack_moblee/v1/questions';
             return $http.post(url, data)
                 .then(successHandler)
                 .catch(errorHandler);

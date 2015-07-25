@@ -16,7 +16,7 @@ define([], function () {
 
         //Bindable members
         vm.getQuestions = getQuestions;
-        vm.postQuestions = getQuestions;
+        vm.postQuestions = postQuestions;
 
         function showSimpleToast(msg) {
             $mdToast.show(

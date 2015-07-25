@@ -7,45 +7,50 @@
  * Date: 23/07/15
  * Time: 23:34
  */
-namespace StackMoblee\Question\Entity;
+namespace StackMoblee\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="StackMoblee\Question\Entity\QuestionRepository")
- * @ORM\Table(name="questions")
+ * @Entity(repositoryClass="StackMoblee\Repository\QuestionRepository")
+ * @Table(name="questions")
  */
 class Question
 {
-    /** @Column(type="integer") * */
+    /**
+     *
+     * @Id @Column(type="integer")
+     **/
     public $question_id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Column(type="string", length=255, nullable=true)
      */
     public $title;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Column(type="string", length=255, nullable=true)
      */
     public $owner_name;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @Column(type="integer", nullable=true)
      */
     public $score;
 
     /**
-     * @ORM\Column(type="integer")
+     * @Column(type="integer")
      */
     public $creation_date;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Column(type="string", length=255, nullable=true)
      */
     public $link;
 
-    /** @Column(type="integer") * */
+    /**
+     * @Column(type="integer")
+     **/
     public $is_answered;
 
     /**
