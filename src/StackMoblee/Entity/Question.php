@@ -9,8 +9,6 @@
  */
 namespace StackMoblee\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * @Entity(repositoryClass="StackMoblee\Repository\QuestionRepository")
  * @Table(name="questions")

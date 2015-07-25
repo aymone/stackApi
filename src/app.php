@@ -16,12 +16,6 @@ $app->register(new ValidatorServiceProvider());
 $app->register(new ServiceControllerServiceProvider());
 $app->register(new HttpFragmentServiceProvider());
 $app->register(new TwigServiceProvider());
-//$app['twig'] = $app->extend('twig', function ($twig, $app) {
-//    $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) use ($app) {
-//        return $app['request_stack']->getMasterRequest()->getBasepath() . '/' . ltrim($asset, '/');
-//    }));
-//    return $twig;
-//});
 
 $app->register(new DoctrineServiceProvider(), [
     'db.options' => [

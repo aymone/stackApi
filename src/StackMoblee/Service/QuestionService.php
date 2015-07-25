@@ -9,21 +9,27 @@
 
 namespace StackMoblee\Service;
 
-use Silex\Application;
 use Doctrine\ORM\EntityManager;
 use StackMoblee\Entity\Question;
 
 class QuestionService
 {
-
-    public $app;
+    /**
+     * Entity
+     * @var
+     */
     private $question;
 
+    /**
+     * @param EntityManager $em
+     */
     public function __construct(EntityManager $em) {
         $this->em = $em;
-        $this->question = new Question();
     }
 
+    /**
+     * @return array
+     */
     public function get() {
         return [
             'status' => true
