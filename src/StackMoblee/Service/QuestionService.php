@@ -21,7 +21,7 @@ class QuestionService
 
     public function __construct(EntityManager $em) {
         $this->em = $em;
-        $this->question = new Question;
+        $this->question = new Question();
     }
 
     public function get() {
@@ -35,29 +35,28 @@ class QuestionService
      * @return array
      */
     public function insert($data = []) {
-        for ($i = 0; $i <= 98; $i++) {
-            $this->question = new Question;
-            $this->question->setQuestionId($data[$i]['question_id']);
-            $this->question->setTitle($data[$i]['title']);
-            $this->question->setOwnerName($data[$i]['owner']);
-            $this->question->setScore($data[$i]['score']);
-            $this->question->setCreationDate($data[$i]['creation_date']);
-            $this->question->setLink($data[$i]['link']);
-            $this->question->setIsAnswered($data[$i]['is_answered']);
-            $this->em->persist($this->question);
-        }
         try {
+            for ($i = 0; $i <= 98; $i++) {
+                $this->question = new Question($data[$i]);
+                $this->em->persist($this->question);
+            }
             $this->em->flush();
-            $this->em->clear();
+            $response = [
+                'status' => true,
+                'msg' => 'Dados persistidos com sucesso!',
+
+            ];
         } catch (Exception $error) {
-            return new JsonResponse([
-                'success' => false,
+            $response = [
+                'status' => false,
                 'msg' => 'Erro ao persistir dados! Erro: ' . $error->getMessage()
-            ]);
+            ];
         }
-        return [
-            'success' => true,
-            'msg' => 'Dados persistidos com sucesso!'
-        ];
+        $this->em->clear();
+        return $response;
+    }
+
+    public function clean() {
+
     }
 }

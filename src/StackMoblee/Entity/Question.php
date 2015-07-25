@@ -54,6 +54,22 @@ class Question
     public $is_answered;
 
     /**
+     * @param $data
+     * Object Constructor
+     */
+    public function __construct($data = null) {
+        if (!empty($data)) {
+            $this->setQuestionId($data['question_id']);
+            $this->setTitle($data['title']);
+            $this->setOwnerName($data['owner']);
+            $this->setScore($data['score']);
+            $this->setCreationDate($data['creation_date']);
+            $this->setLink($data['link']);
+            $this->setIsAnswered($data['is_answered']);
+        }
+    }
+
+    /**
      * @param mixed $question_id
      * @return Question
      */
@@ -76,7 +92,7 @@ class Question
      * @return Question
      */
     public function setOwnerName($owner) {
-        $this->owner_name = $owner['display_name'];
+        $this->owner_name = isset($owner['display_name']) ? $owner['display_name'] : null;
         return $this;
     }
 

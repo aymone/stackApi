@@ -6,13 +6,30 @@
 
 define([], function () {
     angular.module('StackMobleeServices', [])
+        .factory('tostrService', tostrService)
         .factory('questionService', questionService);
 
+    tostrService.$inject = ['$mdToast', '$animate'];
+    function tostrService($mdToast, $animate) {
+        return {
+            show: show
+        };
+
+        function show(msg) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .content(msg)
+                    .position('top right')
+                    .hideDelay(3000)
+            );
+        }
+    }
+
     /**
-     * My revealing module pattern
      * @param $http
      * @returns {{get: get, post: post}}
      */
+    questionService.$inject = ['$http'];
     function questionService($http) {
         /**
          * Public methods

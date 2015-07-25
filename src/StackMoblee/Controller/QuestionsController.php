@@ -8,14 +8,10 @@
 
 namespace StackMoblee\Controller;
 
-
 use Silex\Application;
-use StackMoblee\Entity\Question;
 use StackMoblee\Service\QuestionService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
-//use StackMoblee\Service\QuestionService;
 
 class QuestionsController
 {
@@ -33,14 +29,10 @@ class QuestionsController
      */
     public function post(Application $app, Request $request) {
         $data = json_decode($request->getContent(), true);
-
         $em = $app['orm.em'];
         $questionService = new QuestionService($em);
-        $questions = $questionService->insert($data);
-        return new JsonResponse([
-            'success' => $questions,
-            'msg' => 'question inserido com sucesso!'
-        ]);
+        $response = $questionService->insert($data);
+        return new JsonResponse($response);
     }
 
 }
