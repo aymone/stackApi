@@ -19,14 +19,26 @@ define([], function () {
         //my services
         vm.getQuestions = getQuestions;
         vm.postQuestions = postQuestions;
-        vm.query = query;
+        vm.queryQuestions = queryQuestions;
 
-        //Directive info
-        vm.sortOptions = loadOptions();
+        //Directive data
+        vm.sortOptions = [
+            "question_id",
+            "title",
+            "owner_name",
+            "score",
+            "creation_date",
+            "link",
+            "is_answered"
+        ];
+
+        //Search input
         vm.searchText = null;
-        vm.querySearch = querySearch;
 
-        //filters for query
+        //input query
+        vm.sortOptionsSearch = sortOptionsSearch;
+
+        //filters for get query
         vm.filters = {
             page: null,
             rpp: null,
@@ -34,41 +46,47 @@ define([], function () {
             score: null
         };
 
-        function query() {
-            console.log(vm.filters);
-        }
-
-
-        function querySearch(query) {
-            var results = query ? vm.sortOptions.filter(createFilterFor(query)) : vm.sortOptions;
+        /**
+         * Search in sortOptions
+         * @param query
+         * @returns {Array} finded SortOptions
+         */
+        function sortOptionsSearch(query) {
+            var results = query ? vm.sortOptions.filter(SortFilter(query)) : vm.sortOptions;
             return results;
         }
 
         /**
-         * Build `states` list of key/value pairs
+         * SortFilter
+         * @param query
+         * @returns {Function}
          */
-        function loadOptions() {
-            var allFields = 'question_id, title, owner_name, score, creation_date, link, is_answered';
-            return allFields.split(/, +/g).map(function (field) {
-                console.log(field);
-                return field.toLowerCase();
-            });
-        }
-
-        /**
-         * Create filter function for a query string
-         */
-        function createFilterFor(query) {
+        function SortFilter(query) {
             var lowercaseQuery = angular.lowercase(query);
             return function filterFn(field) {
                 return (field.indexOf(lowercaseQuery) === 0);
             };
         }
 
+        /**
+         * Query in persisted questiond
+         * @returns {Object} Promise
+         */
+        function queryQuestions() {
+            return questionService.query(vm.filters)
+                .then(function (response) {
+                    if (response && response.status) {
+                        console.log('redirect');
+                    } else {
+                        console.log(response);
+                        tostrService.show('Erro na query');
+                    }
+                });
+        }
 
         /**
          * Get questions
-         * @returns {*}
+         * @returns {Object} Promise
          */
         function getQuestions() {
             return questionService.get()
@@ -89,7 +107,7 @@ define([], function () {
         /**
          * Post questions
          * @param data
-         * @returns {*}
+         * @returns {Object} Promise
          */
         function postQuestions(data) {
             return questionService.post(data)

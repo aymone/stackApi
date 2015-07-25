@@ -36,8 +36,19 @@ define([], function () {
          */
         return {
             get: get,
-            post: post
+            post: post,
+            query: query
         };
+
+        function query(filters) {
+            var url = 'http://local.stack.com/stack_moblee/v1/questions';
+            var config = {
+                params: filters
+            };
+            return $http.get(url, config)
+                .then(successHandler)
+                .catch(errorHandler);
+        }
 
         /**
          * Post data retrieved from stackOverflow api
