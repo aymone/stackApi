@@ -22,7 +22,7 @@ define([], function () {
         vm.query = query;
 
         //Directive info
-        vm.sortOptions = loadAll();
+        vm.sortOptions = loadOptions();
         vm.searchText = null;
         vm.querySearch = querySearch;
 
@@ -40,16 +40,17 @@ define([], function () {
 
 
         function querySearch(query) {
-            var results = query ? vm.sortOptions.filter(createFilterFor(query)) : [];
+            var results = query ? vm.sortOptions.filter(createFilterFor(query)) : vm.sortOptions;
             return results;
         }
 
         /**
          * Build `states` list of key/value pairs
          */
-        function loadAll() {
+        function loadOptions() {
             var allFields = 'question_id, title, owner_name, score, creation_date, link, is_answered';
             return allFields.split(/, +/g).map(function (field) {
+                console.log(field);
                 return field.toLowerCase();
             });
         }

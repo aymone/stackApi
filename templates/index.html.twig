@@ -30,7 +30,7 @@
                         </md-input-container>
                         <md-input-container flex>
                             <label>Rpp</label>
-                            <input type="number" max=99 ng-model="filter.rpp">
+                            <input type="number" max=99 ng-model="ctrl.filters.rpp">
                         </md-input-container>
                         <md-autocomplete flex required
                                          md-input-name="autocompleteField"
@@ -38,6 +38,7 @@
                                          md-selected-item-change="null"
                                          md-search-text-change="null"
                                          md-autofocus=0
+                                         md-min-length="0"
                                          md-selected-item="ctrl.filters.sort"
                                          md-search-text="ctrl.searchText"
                                          md-items="item in ctrl.querySearch(ctrl.searchText)"
