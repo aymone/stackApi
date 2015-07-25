@@ -7,12 +7,15 @@
             <div flex>
                 <div layout="row" layout-sm="column" layout-align="space-around">
                     <div flex>
-                        <md-button class="md-raised md-warn" ng-click="ctrl.getQuestions()">Persistir dados</md-button>
+                        <md-button class="md-raised md-warn" ng-click="ctrl.getQuestions()">
+                            Persistir dados
+                        </md-button>
                     </div>
                     <div flex></div>
                     <div flex>
                         <md-progress-circular ng-show="ctrl.loading" class="md-warn"
-                                              md-mode="indeterminate"></md-progress-circular>
+                                              md-mode="indeterminate">
+                        </md-progress-circular>
                     </div>
                 </div>
             </div>
@@ -23,14 +26,12 @@
                     <div layout layout-sm="column">
                         <md-input-container flex>
                             <label>Page</label>
-                            <input ng-model="ctrl.filters.page">
+                            <input type="number" min=1 ng-model="ctrl.filters.page">
                         </md-input-container>
                         <md-input-container flex>
                             <label>Rpp</label>
-                            <input ng-model="filter.rpp">
+                            <input type="number" max=99 ng-model="filter.rpp">
                         </md-input-container>
-
-
                         <md-autocomplete flex required
                                          md-input-name="autocompleteField"
                                          md-no-cache="ctrl.noCache"
@@ -45,13 +46,10 @@
                             <md-item-template>
                                 <span md-highlight-text="ctrl.searchText">{[{ item }]}</span>
                             </md-item-template>
-
                         </md-autocomplete>
-
-
                         <md-input-container flex>
                             <label>Score</label>
-                            <input ng-model="ctrl.filters.score">
+                            <input type="number" ng-model="ctrl.filters.score">
                         </md-input-container>
                     </div>
                     </hr>
