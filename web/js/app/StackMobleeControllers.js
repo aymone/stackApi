@@ -12,9 +12,10 @@ define([], function () {
     function AppController($rootScope, $scope, questionService, tostrService, $timeout, $q) {
         var vm = this;
         var questions = {};
-
+        vm.filtered = [];
         //loader status machine
         vm.loading = false;
+        vm.coolMode = false;
 
         //my services
         vm.getQuestions = getQuestions;
@@ -40,10 +41,10 @@ define([], function () {
 
         //filters for get query
         vm.filters = {
-            page: null,
-            rpp: null,
-            sort: null,
-            score: null
+            page: 1,
+            rpp: 10,
+            sort: 'creation_date',
+            score: 0
         };
 
         /**
@@ -76,7 +77,9 @@ define([], function () {
             return questionService.query(vm.filters)
                 .then(function (response) {
                     if (response && response.status) {
-                        console.log('redirect');
+                        vm.filtered = response.questions;
+                        tostrService.show('Busca efetuada com sucesso!');
+
                     } else {
                         console.log(response);
                         tostrService.show('Erro na query');
@@ -126,5 +129,4 @@ define([], function () {
         });
     }
 
-})
-;
+});

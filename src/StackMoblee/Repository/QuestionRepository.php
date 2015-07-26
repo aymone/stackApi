@@ -28,10 +28,9 @@ class QuestionRepository extends EntityRepository
             ->where('q.score > ' . $params['score'])
             ->orderBy('q.' . $params['sort'], 'ASC');
 
-        $paginator = new Paginator($q, false);
-        $pagination = $paginator->getQuery()->getArrayResult();
-
-        return $pagination;
+        return (new Paginator($q, false))
+            ->getQuery()
+            ->getArrayResult();
     }
 
 }

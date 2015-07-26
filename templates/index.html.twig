@@ -2,7 +2,7 @@
 
 {% block content %}
     <div layout="row">
-        <div flex="33" hide-sm></div>
+        <div flex="30" hide-sm></div>
         <div flex>
             <div flex>
                 <div layout="row" layout-sm="column" layout-align="space-around">
@@ -10,6 +10,11 @@
                         <md-button class="md-raised md-warn" ng-click="ctrl.getQuestions()">
                             Persistir dados
                         </md-button>
+                    </div>
+                    <div flex>
+                        <md-switch ng-model="ctrl.coolMode" aria-label="Switch 1">
+                            Cool Mode
+                        </md-switch>
                     </div>
                     <div flex></div>
                     <div flex>
@@ -55,30 +60,29 @@
                     </div>
                     </hr>
                     <md-input-container flex>
-                        <md-button ng-click="ctrl.queryQuestions()" class="md-raised md-primary">Buscar</md-button>
+                        <md-button ng-click="ctrl.queryQuestions()" class="md-raised md-primary">
+                            Buscar
+                        </md-button>
                     </md-input-container>
                 </form>
             </div>
 
             <md-list>
-                <md-list-item class="md-3-line" ng-repeat="item in ctrl.questions">
+                <md-list-item class="md-3-line" ng-repeat="item in ctrl.filtered">
                     <div class="md-list-item-text">
                         <h3>{[{item.title}]}</h3>
-                        <h4>Usuário: {[{item.owner.display_name}]}</h4>
+                        <h4>Owner name: {[{item.owner_name}]}</h4>
 
-                        <p>Id: {[{item.question_id}]}</p>
+                        <p>Question id: {[{item.question_id}]} Score: {[{item.score}]} Is answered:
+                            {[{item.is_answered}]}</p>
 
-                        <p>Pontuação: {[{item.score}]}</p>
-
-                        <p>Possui resposta: {[{item.is_answered}]}</p>
-
-                        <p>Data de criação: {[{item.creation_date}]}</p>
+                        <p>Creation date: {[{item.creation_date}]}</p>
 
                         <p>{[{item.link}]}</p>
                     </div>
                 </md-list-item>
             </md-list>
         </div>
-        <div flex="33" hide-sm></div>
+        <div flex="30" hide-sm></div>
     </div>
 {% endblock %}
