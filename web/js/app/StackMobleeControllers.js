@@ -8,13 +8,14 @@ define([], function () {
     angular.module('StackMobleeControllers', [])
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$rootScope', '$scope', 'questionService', 'tostrService'];
-    function AppController($rootScope, $scope, questionService, tostrService) {
+    AppController.$inject = ['$rootScope', 'questionService', 'tostrService'];
+    function AppController($rootScope, questionService, tostrService) {
         var vm = this;
         var questions = {};
         vm.filtered = [];
         //loader status machine
         vm.loading = false;
+        //list/redirect mode
         vm.coolMode = false;
 
         //my services
@@ -33,12 +34,6 @@ define([], function () {
             "is_answered"
         ];
 
-        //Search input
-        vm.searchText = null;
-
-        //input query
-        vm.sortOptionsSearch = sortOptionsSearch;
-
         //filters for get query
         vm.filters = {
             page: 1,
@@ -46,28 +41,6 @@ define([], function () {
             sort: 'creation_date',
             score: 0
         };
-
-        /**
-         * Search in sortOptions
-         * @param query
-         * @returns {Array} finded SortOptions
-         */
-        function sortOptionsSearch(query) {
-            var results = query ? vm.sortOptions.filter(SortFilter(query)) : vm.sortOptions;
-            return results;
-        }
-
-        /**
-         * SortFilter
-         * @param query
-         * @returns {Function}
-         */
-        function SortFilter(query) {
-            var lowercaseQuery = angular.lowercase(query);
-            return function filterFn(field) {
-                return (field.indexOf(lowercaseQuery) === 0);
-            };
-        }
 
         /**
          * Query in persisted questiond

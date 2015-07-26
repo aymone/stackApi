@@ -35,7 +35,7 @@ require.config({
             exports: 'ngMaterial'
         },
         'StackMoblee': {
-            deps: ['angular', 'ngAria', 'ngAnimate', 'ngMaterial'],
+            deps: ['angular', 'ngAria', 'ngAnimate', 'ngMaterial', 'ngSanitize'],
             exports: 'StackMoblee'
         }
     }

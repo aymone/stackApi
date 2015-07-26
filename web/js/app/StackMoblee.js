@@ -74,6 +74,7 @@
             function config($httpProvider, $locationProvider, $interpolateProvider) {
                 $httpProvider.interceptors.push('httpInterceptor');
                 $locationProvider.html5Mode(false);
+                //Twig compatible Symbols
                 $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
             }
         }
