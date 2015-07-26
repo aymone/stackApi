@@ -36,7 +36,16 @@ class QuestionService
      */
     public function find($params) {
         $params = $this->questionsRepository->query($params);
-        return $params;
+        if (!empty($params)) {
+            return [
+                'status' => true,
+                'questions' => $params
+            ];
+        }
+        return [
+            'status' => false,
+            'msg' => 'Query Error'
+        ];
     }
 
     /**
