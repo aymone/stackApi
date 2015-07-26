@@ -33,22 +33,32 @@
                             <label>Rpp</label>
                             <input type="number" max=99 ng-model="ctrl.filters.rpp">
                         </md-input-container>
-                        <md-autocomplete flex
-                                         md-input-name="autocompleteField"
-                                         md-no-cache="ctrl.noCache"
-                                         md-selected-item-change="null"
-                                         md-search-text-change="null"
-                                         md-autofocus=0
-                                         md-min-length="0"
-                                         md-selected-item="ctrl.filters.sort"
-                                         md-search-text="ctrl.searchText"
-                                         md-items="item in ctrl.sortOptionsSearch(ctrl.searchText)"
-                                         md-item-text="item"
-                                         md-floating-label="Sort">
-                            <md-item-template>
-                                <span md-highlight-text="ctrl.searchText">{[{ item }]}</span>
-                            </md-item-template>
-                        </md-autocomplete>
+                        {#<md-autocomplete flex#}
+                                         {#md-input-name="autocompleteField"#}
+                                         {#md-no-cache="ctrl.noCache"#}
+                                         {#md-selected-item-change="null"#}
+                                         {#md-search-text-change="null"#}
+                                         {#md-autofocus=0#}
+                                         {#md-min-length="0"#}
+                                         {#md-selected-item="ctrl.filters.sort"#}
+                                         {#md-search-text="ctrl.searchText"#}
+                                         {#md-items="item in ctrl.sortOptionsSearch(ctrl.searchText)"#}
+                                         {#md-item-text="item"#}
+                                         {#md-floating-label="Sort">#}
+                            {#<md-item-template>#}
+
+
+
+                                {#<span md-highlight-text="ctrl.searchText">{[{ item }]}</span>#}
+                            {#</md-item-template>#}
+                        {#</md-autocomplete>#}
+
+                        <md-select placeholder="Sort" ng-model="ctrl.filters.sort">
+                            <md-option ng-repeat="item in ctrl.sortOptions"
+                                       value="{[{ item }]}">
+                                {[{ item }]}
+                            </md-option>
+                        </md-select>
                         <md-input-container flex>
                             <label>Score</label>
                             <input type="number" ng-model="ctrl.filters.score">
@@ -66,6 +76,8 @@
             <md-list ng-if="ctrl.coolMode">
                 <md-list-item class="md-3-line" ng-repeat="item in ctrl.filtered">
                     <div class="md-list-item-text">
+                        <a ng-href="{[{ item.link }]}">{[{ item.link }]}</a>
+
                         <h3>{[{item.title}]}</h3>
                         <h4>Owner name: {[{item.owner_name}]}</h4>
 
@@ -74,7 +86,6 @@
 
                         <p>Creation date: {[{item.creation_date}]}</p>
 
-                        <p>{[{item.link}]}</p>
                     </div>
                 </md-list-item>
             </md-list>
