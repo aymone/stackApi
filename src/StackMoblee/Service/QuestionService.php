@@ -20,13 +20,15 @@ class QuestionService
      */
     private $question;
 
+    private $entityAlias = "\\StackMoblee\\Entity\\Question";
+
     /**
      * @param EntityManager $em
      */
     public function __construct(EntityManager $em) {
         $this->em = $em;
         $this->questionsRepository = $this->em
-            ->getRepository("\\StackMoblee\\Entity\\Question");
+            ->getRepository($this->entityAlias);
     }
 
     /**
@@ -35,11 +37,11 @@ class QuestionService
      * @return mixed
      */
     public function find($params) {
-        $params = $this->questionsRepository->query($params);
-        if (!empty($params)) {
+        $questions = $this->questionsRepository->query($params);
+        if (!empty($questions)) {
             return [
                 'status' => true,
-                'questions' => $params
+                'questions' => $questions
             ];
         }
         return [
@@ -53,6 +55,8 @@ class QuestionService
      * @return array
      */
     public function insert($data = []) {
+        $this->em->getConnection()->beginTransaction();
+        $this->clean();
         try {
             for ($i = 0; $i <= 98; $i++) {
                 $this->question = new Question($data[$i]);
@@ -62,9 +66,10 @@ class QuestionService
             $response = [
                 'status' => true,
                 'msg' => 'Dados persistidos com sucesso!',
-
             ];
+            $this->em->getConnection()->commit();
         } catch (Exception $error) {
+            $this->em->getConnection()->rollback();
             $response = [
                 'status' => false,
                 'msg' => 'Erro ao persistir dados! Erro: ' . $error->getMessage()
@@ -75,6 +80,7 @@ class QuestionService
     }
 
     public function clean() {
-
+        $q = $this->em->createQuery("delete from $this->entityAlias m where 1=1");
+        return $q->execute();
     }
 }

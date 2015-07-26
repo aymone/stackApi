@@ -8,8 +8,8 @@ define([], function () {
     angular.module('StackMobleeControllers', [])
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$rootScope', '$scope', 'questionService', 'tostrService', '$timeout', '$q'];
-    function AppController($rootScope, $scope, questionService, tostrService, $timeout, $q) {
+    AppController.$inject = ['$rootScope', '$scope', 'questionService', 'tostrService'];
+    function AppController($rootScope, $scope, questionService, tostrService) {
         var vm = this;
         var questions = {};
         vm.filtered = [];
@@ -74,15 +74,11 @@ define([], function () {
          * @returns {Object} Promise
          */
         function queryQuestions() {
-            return questionService.query(vm.filters)
+            return questionService.query(vm.filters, vm.coolMode)
                 .then(function (response) {
                     if (response && response.status) {
                         vm.filtered = response.questions;
                         tostrService.show('Busca efetuada com sucesso!');
-
-                    } else {
-                        console.log(response);
-                        tostrService.show('Erro na query');
                     }
                 });
         }

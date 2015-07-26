@@ -11,11 +11,7 @@
                             Persistir dados
                         </md-button>
                     </div>
-                    <div flex>
-                        <md-switch ng-model="ctrl.coolMode" aria-label="Switch 1">
-                            Cool Mode
-                        </md-switch>
-                    </div>
+                    <div flex></div>
                     <div flex></div>
                     <div flex>
                         <md-progress-circular ng-show="ctrl.loading" class="md-warn"
@@ -67,7 +63,7 @@
                 </form>
             </div>
 
-            <md-list>
+            <md-list ng-if="ctrl.coolMode">
                 <md-list-item class="md-3-line" ng-repeat="item in ctrl.filtered">
                     <div class="md-list-item-text">
                         <h3>{[{item.title}]}</h3>

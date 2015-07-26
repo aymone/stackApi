@@ -31,6 +31,7 @@ define([], function () {
      */
     questionService.$inject = ['$http'];
     function questionService($http) {
+        var url = 'http://local.stack.com/stack_moblee/v1/questions';
         /**
          * Public methods
          */
@@ -40,10 +41,12 @@ define([], function () {
             query: query
         };
 
-        function query(filters) {
-            var url = 'http://local.stack.com/stack_moblee/v1/questions';
+        function query(filters, coolMode) {
             var config = {
-                params: filters
+                params: filters,
+                headers: {
+                    "X-Coll-Mode": coolMode
+                }
             };
             return $http.get(url, config)
                 .then(successHandler)
@@ -55,7 +58,6 @@ define([], function () {
          * @returns {object} promise
          */
         function post(data) {
-            var url = 'http://local.stack.com/stack_moblee/v1/questions';
             return $http.post(url, data)
                 .then(successHandler)
                 .catch(errorHandler);
@@ -103,7 +105,6 @@ define([], function () {
          * @returns {boolean}
          */
         function errorHandler(error) {
-            console.log(error.config);
             return false;
         }
 
