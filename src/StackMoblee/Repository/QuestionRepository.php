@@ -11,7 +11,8 @@ namespace StackMoblee\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Doctrine\Common\Collections\ArrayCollection;
+
+//use Doctrine\Common\Collections\ArrayCollection;
 
 class QuestionRepository extends EntityRepository
 {
@@ -22,6 +23,8 @@ class QuestionRepository extends EntityRepository
      * @return array|bool
      */
     public function query($params) {
+        $page = 1;
+        $size = 99;
 
         $fields = [
             'q.question_id', 'q.title', 'q.owner_name', 'q.score',
@@ -32,15 +35,32 @@ class QuestionRepository extends EntityRepository
             return null;
         }
 
-        $q = $this->createQueryBuilder('q')
+        $dql = $this->createQueryBuilder('q')
             ->select($fields)
             ->where('q.score > :score')
-            ->orderBy('q.' . $params['sort'], ' ASC')
+            ->orderBy('q.' . $params['sort'], ' DESC')
             ->setParameter(':score', $params['score']);
 
-        return (new Paginator($q, false))
-            ->getQuery()
-            ->getArrayResult();
+        if (!empty($params['page']) && !empty($params['rpp'])) {
+            $page = $params['page'];
+            $size = $params['rpp'];
+        }
+        return $this->queryPaginator($dql, $size, $page);
+    }
+
+    /**
+     * @param $dql
+     * @param int $size
+     * @param int $current
+     * @return Paginator
+     */
+    public function queryPaginator($dql, $size = null, $current = null) {
+        $paginator = (new Paginator($dql))->getQuery();
+        if (!empty($size) && !empty($current)) {
+            $paginator->setFirstResult($size * ($current - 1))
+                ->setMaxResults($size);
+        }
+        return $paginator->getArrayResult();
     }
 
 }
