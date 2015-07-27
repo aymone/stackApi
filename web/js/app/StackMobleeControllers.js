@@ -84,7 +84,6 @@ define([], function () {
         function postQuestions(data) {
             return questionService.post(data)
                 .then(function (response) {
-                    console.log(response);
                     if (angular.isDefined(response) && response.status) {
                         tostrService.show('Dados persistidos com sucesso!');
                     } else {
