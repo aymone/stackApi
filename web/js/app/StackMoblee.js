@@ -69,13 +69,17 @@
                 }
             }
 
-            config.$inject = ['$httpProvider', '$locationProvider', '$interpolateProvider'];
+            config.$inject = ['$httpProvider', '$locationProvider', '$interpolateProvider', '$mdThemingProvider'];
 
-            function config($httpProvider, $locationProvider, $interpolateProvider) {
+            function config($httpProvider, $locationProvider, $interpolateProvider, $mdThemingProvider) {
                 $httpProvider.interceptors.push('httpInterceptor');
                 $locationProvider.html5Mode(false);
                 //Twig compatible Symbols
                 $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+
+                $mdThemingProvider.theme('default')
+                        .primaryPalette('indigo')
+                        .accentPalette('red');
             }
         }
     );

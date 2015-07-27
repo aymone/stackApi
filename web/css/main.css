@@ -1,5 +1,4 @@
 body {
-    /*overflow:hidden !important;*/
     overflow-y: hidden !important;
 }
 
@@ -8,12 +7,23 @@ body {
     height: auto;
     padding-top: 8px;
     padding-bottom: 8px;
-    white-space: normal; }
+    white-space: normal;
+}
+
 .autocompletedemoCustomTemplate .autocomplete-custom-template li:last-child {
-    border-bottom-width: 0; }
+    border-bottom-width: 0;
+}
+
 .autocompletedemoCustomTemplate .autocomplete-custom-template .item-title, .autocompletedemoCustomTemplate .autocomplete-custom-template .item-metadata {
     display: block;
-    line-height: 2; }
+    line-height: 2;
+}
+
 .autocompletedemoCustomTemplate .autocomplete-custom-template .item-title md-icon {
     height: 18px;
-    width: 18px; }
+    width: 18px;
+}
+
+.ng-cloak {
+    display: none !important;
+}

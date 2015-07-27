@@ -51,7 +51,6 @@ define([], function () {
             return questionService.query(vm.filters, vm.coolMode)
                 .then(function (response) {
                     if (response && response.content) {
-                        console.log(response);
                         vm.filtered = response.content;
                         vm.lastUpdate = response.last_update;
                         tostrService.show('Busca efetuada com sucesso!');

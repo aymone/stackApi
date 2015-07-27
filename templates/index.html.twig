@@ -25,27 +25,30 @@
             <div>
                 <form name="filterForm">
                     <div layout layout-sm="column">
-                        <md-input-container flex>
+
+                        <md-input-container flex="25">
                             <label>Page</label>
                             <input type="number" min=1 ng-model="ctrl.filters.page">
                         </md-input-container>
-                        <md-input-container flex>
+
+                        <md-input-container flex="25">
                             <label>Rpp</label>
                             <input type="number" max=99 ng-model="ctrl.filters.rpp">
                         </md-input-container>
+
                         <md-select placeholder="Sort" ng-model="ctrl.filters.sort">
-                            <md-option ng-repeat="item in ctrl.sortOptions"
-                                       value="{[{ item }]}">
+                            <md-option ng-repeat="item in ctrl.sortOptions" value="{[{ item }]}">
                                 {[{ item }]}
                             </md-option>
                         </md-select>
-                        <md-input-container flex>
+
+                        <md-input-container flex="25">
                             <label>Score</label>
                             <input type="number" ng-model="ctrl.filters.score">
                         </md-input-container>
                     </div>
                     </hr>
-                    <md-input-container flex>
+                    <md-input-container flex="100">
                         <md-button ng-click="ctrl.queryQuestions()" class="md-raised md-primary">
                             Buscar
                         </md-button>
