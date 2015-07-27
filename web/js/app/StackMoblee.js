@@ -43,8 +43,8 @@
                 };
                 function request(config) {
                     numLoadings++;
-                    if (angular.isDefined(config.headers['X-Coll-Mode'])) {
-                        if (!config.headers['X-Coll-Mode']) {
+                    if (angular.isDefined(config.headers['X-Cool-Mode'])) {
+                        if (!config.headers['X-Cool-Mode']) {
                             $window.open(serializeUrl(config), '_blank');
                             return $q.reject(config);
                         }

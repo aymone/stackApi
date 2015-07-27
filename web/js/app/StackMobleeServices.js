@@ -45,7 +45,7 @@ define([], function () {
             var config = {
                 params: filters,
                 headers: {
-                    "X-Coll-Mode": coolMode
+                    "X-Cool-Mode": coolMode
                 }
             };
             return $http.get(url, config)

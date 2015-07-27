@@ -53,8 +53,8 @@
                 </form>
             </div>
 
-            <div>
-                Última atualização:
+            <div ng-if="ctrl.lastUpdate">
+                Última atualização: {[{ ctrl.lastUpdate }]}
             </div>
 
             <md-list ng-if="ctrl.coolMode">

@@ -12,8 +12,6 @@ namespace StackMoblee\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
-//use Doctrine\Common\Collections\ArrayCollection;
-
 class QuestionRepository extends EntityRepository
 {
     /**

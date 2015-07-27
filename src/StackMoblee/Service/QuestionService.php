@@ -11,6 +11,7 @@ namespace StackMoblee\Service;
 
 use Doctrine\ORM\EntityManager;
 use StackMoblee\Entity\Question;
+use StackMoblee\Entity\Update;
 
 class QuestionService
 {
@@ -20,15 +21,17 @@ class QuestionService
      */
     private $question;
 
-    private $entityAlias = "\\StackMoblee\\Entity\\Question";
+    /**
+     * Update entity
+     * @var
+     */
+    private $update;
 
     /**
      * @param EntityManager $em
      */
     public function __construct(EntityManager $em) {
         $this->em = $em;
-        $this->questionsRepository = $this->em
-            ->getRepository($this->entityAlias);
     }
 
     /**
@@ -37,15 +40,16 @@ class QuestionService
      * @return mixed
      */
     public function find($params) {
-        $questions = $this->questionsRepository->query($params);
+        $questionsRepository = $this->em->getRepository("\\StackMoblee\\Entity\\Question");
+        $questions = $questionsRepository->query($params);
         if (!empty($questions)) {
             return [
-                'status' => true,
-                'questions' => $questions
+                'last_update' => $this->getLastUpdate(),
+                'content' => $questions
             ];
         }
         return [
-            'status' => false,
+            'content' => false,
             'msg' => 'Query Error'
         ];
     }
@@ -63,7 +67,9 @@ class QuestionService
                 $this->em->persist($this->question);
             }
             $this->em->flush();
+            $this->setUpdate();
             $response = [
+                'last_update' => $this->setUpdate(),
                 'status' => true,
                 'msg' => 'Dados persistidos com sucesso!',
             ];
@@ -79,8 +85,33 @@ class QuestionService
         return $response;
     }
 
+    /**
+     * SetUpdate
+     * @return null|string
+     */
+    public function setUpdate() {
+        $this->update = new Update();
+        $this->em->persist($this->update);
+        $this->em->flush();
+        return !empty($this->update->created) ? $this->update->created : null;
+    }
+
+    /**
+     * Get Last Update
+     * @return null
+     */
+    public function getLastUpdate() {
+        $last_update = $this->em->getRepository("\\StackMoblee\\Entity\\Update")->findOneBy([], ['created' => 'DESC']);
+        return !empty($last_update->created) ? $last_update->created : null;
+    }
+
+    /**
+     * Clean Questions table
+     * @return mixed
+     */
     public function clean() {
-        $q = $this->em->createQuery("delete from $this->entityAlias m where 1=1");
+        $questionAlias = "\\StackMoblee\\Entity\\Question";
+        $q = $this->em->createQuery("delete from $questionAlias m where 1=1");
         return $q->execute();
     }
 }

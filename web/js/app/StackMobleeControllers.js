@@ -13,6 +13,7 @@ define([], function () {
         var vm = this;
         var questions = {};
         vm.filtered = [];
+        vm.lastUpdate = null;
         //loader status machine
         vm.loading = false;
         //list/redirect mode
@@ -49,8 +50,10 @@ define([], function () {
         function queryQuestions() {
             return questionService.query(vm.filters, vm.coolMode)
                 .then(function (response) {
-                    if (response && response.status) {
-                        vm.filtered = response.questions;
+                    if (response && response.content) {
+                        console.log(response);
+                        vm.filtered = response.content;
+                        vm.lastUpdate = response.last_update;
                         tostrService.show('Busca efetuada com sucesso!');
                     }
                 });

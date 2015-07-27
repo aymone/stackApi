@@ -5,7 +5,7 @@ namespace StackMoblee\Provider;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 
-class QuestionsControllerProvider implements ControllerProviderInterface
+class StackMobleeControllerProvider implements ControllerProviderInterface
 {
     /**
      * Provider connector
@@ -19,14 +19,15 @@ class QuestionsControllerProvider implements ControllerProviderInterface
         $controllers = $app['controllers_factory'];
 
         /**
-         * Get route
+         * Get Questions route
          */
         $controllers->get("/questions", "StackMoblee\\Controller\\QuestionsController::get");
 
         /**
-         * Post route
+         * Post Questions route
          */
         $controllers->post("/questions", "StackMoblee\\Controller\\QuestionsController::post");
+
         return $controllers;
     }
 }
