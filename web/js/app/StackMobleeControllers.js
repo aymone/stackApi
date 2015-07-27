@@ -6,7 +6,15 @@
 
 define([], function () {
     angular.module('StackMobleeControllers', [])
+        .filter('formatDatetime', formatDatetime)
         .controller('AppController', AppController);
+
+    function formatDatetime() {
+        return function (input) {
+            var _datetime = new Date(input * 1000);
+            return _datetime.toString();
+        }
+    }
 
     AppController.$inject = ['$rootScope', 'questionService', 'tostrService'];
     function AppController($rootScope, questionService, tostrService) {
@@ -87,6 +95,7 @@ define([], function () {
             return questionService.post(data)
                 .then(function (response) {
                     if (angular.isDefined(response) && response.status) {
+                        vm.lastUpdate = response.last_update;
                         tostrService.show('Dados persistidos com sucesso!');
                     } else {
                         tostrService.show('Erro ao persistir dados, verifique o console do browser!');

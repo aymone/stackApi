@@ -57,7 +57,7 @@
             </div>
 
             <div ng-if="ctrl.lastUpdate">
-                Última atualização: {[{ ctrl.lastUpdate }]}
+                Última atualização: {[{ ctrl.lastUpdate | formatDatetime}]}
             </div>
 
             <md-list ng-if="ctrl.coolMode">
