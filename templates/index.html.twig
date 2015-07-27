@@ -53,16 +53,22 @@
                 </form>
             </div>
 
+            <div>
+                Última atualização:
+            </div>
+
             <md-list ng-if="ctrl.coolMode">
                 <md-list-item class="md-3-line" ng-repeat="item in ctrl.filtered">
                     <div class="md-list-item-text">
-                        <a ng-href="{[{ item.link }]}">{[{ item.link }]}</a>
+                        <a ng-href="{[{ item.link }]}">{[{item.title}]}</a>
 
-                        <h3>{[{item.title}]}</h3>
                         <h4>Owner name: {[{item.owner_name}]}</h4>
 
-                        <p>Question id: {[{item.question_id}]} Score: {[{item.score}]} Is answered:
-                            {[{item.is_answered}]}</p>
+                        <p>Question id: {[{item.question_id}]}</p>
+
+                        <p> Score: {[{item.score}]} </p>
+
+                        <p>Is answered: {[{item.is_answered}]}</p>
 
                         <p>Creation date: {[{item.creation_date}]}</p>
 

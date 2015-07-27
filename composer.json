@@ -21,6 +21,7 @@
         "symfony/translation": "~2.6",
         "symfony/twig-bridge": "~2.6",
         "symfony/validator": "~2.6",
+        "symfony/yaml":"^2.7",
         "doctrine/dbal": "^2.5",
         "dflydev/doctrine-orm-service-provider": "^2.0"
     },

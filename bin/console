@@ -1,16 +1,31 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 set_time_limit(0);
 
+use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\ArgvInput;
+use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
+use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
 
 $input = new ArgvInput();
 $env = $input->getParameterOption(array('--env', '-e'), getenv('SYMFONY_ENV') ?: 'dev');
 
-$app = require __DIR__.'/../src/app.php';
-require __DIR__.'/../config/'.$env.'.php';
-$console = require __DIR__.'/../src/console.php';
+$app = require __DIR__ . '/../src/app.php';
+
+require __DIR__ . '/../config/' . $env . '.php';
+$console = require __DIR__ . '/../src/console.php';
+
+/*
+ * Doctrine CLI
+ */
+$helperSet = new HelperSet(array(
+    'db' => new ConnectionHelper($app['orm.em']->getConnection()),
+    'em' => new EntityManagerHelper($app['orm.em'])
+));
+$console->setHelperSet($helperSet);
+Doctrine\ORM\Tools\Console\ConsoleRunner::addCommands($console);
+
 $console->run();
